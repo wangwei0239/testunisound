@@ -7,6 +7,7 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_wifi.*
 
@@ -46,7 +47,7 @@ class WifiActivity : AppCompatActivity(){
         wifi_list.adapter = adapter
         wifi_list.setOnItemClickListener { parent, view, position, id ->
             var scanResult = adapter.getItem(position)
-            var conf:WifiConfiguration = WifiConfiguration()
+            var conf = WifiConfiguration()
             conf.SSID = String.format("\"%s\"", scanResult.SSID)
             conf.preSharedKey = String.format("\"%s\"", "emotibot007")
             var netid = wifiManager.addNetwork(conf)
@@ -64,7 +65,8 @@ class WifiActivity : AppCompatActivity(){
         if(!wifiManager.isWifiEnabled){
             wifiManager.isWifiEnabled = true
         }
-        wifiManager.startScan()
+        var result = wifiManager.startScan()
+        Log.i("p2p","result:"+result)
         list.addAll(wifiManager.scanResults)
         adapter.notifyDataSetChanged()
     }

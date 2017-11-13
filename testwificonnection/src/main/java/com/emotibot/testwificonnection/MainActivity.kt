@@ -156,6 +156,7 @@ class MainActivity : AppCompatActivity() {
     var infoListener: WifiP2pManager.ConnectionInfoListener = object : WifiP2pManager.ConnectionInfoListener {
         override fun onConnectionInfoAvailable(info: WifiP2pInfo) {
             this@MainActivity.info = info
+
             if (info!!.isGroupOwner) {
                 var dataAsync = DataAsync(result_content)
                 dataAsync.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
